@@ -5,3 +5,8 @@
 .register p {
     color: #aaa;
 }
+
+.register label{
+    text-align: left;
+}
+

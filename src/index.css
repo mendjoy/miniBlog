@@ -39,13 +39,14 @@ form{
 label{
     display: flex;
     flex-direction: column;
-    margin-bottom: 2px;
+    margin-bottom: 1em;
+  
 }
 
 label span {
     margin-bottom: .3em;
     font-weight: bold;
-    text-align: center;
+    
 }
 
 input, textarea{
