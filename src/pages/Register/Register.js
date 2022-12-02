@@ -2,6 +2,9 @@ import styles from "./Register.module.css";
 
 import { useState, useEffect } from "react";
 
+//hook
+import { useAuthentication } from "../../hooks/useAuthentication";
+
 const Register = () => {
 
   const [displayName, setDisplayName]= useState("");
@@ -10,8 +13,10 @@ const Register = () => {
   const [confirmPassword, setComfirmPassword] = useState("");
   const [error, setError] = useState("");
 
+  const { createUser, error: authError,  loading } = useAuthentication();
+
     //envio do form
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setError(""); //no envio do form os erros são zerados
@@ -24,13 +29,21 @@ const Register = () => {
 
     //se a senha for diferente da confirmação de senha
     if (password !== confirmPassword){
-      setError("As senhas precisam ser iguais!");
-      return
+     return setError("As senhas precisam ser iguais!");
+      
     }
 
-    
+    const res = await createUser(user);
+  };
 
-  }
+    useEffect( () => {
+
+      if(authError){
+        setError(authError);
+
+      }
+
+    },[authError])
   return (
     <div className={ styles.register }>
         <h1>Cadastre-se para postar</h1>
@@ -82,7 +95,15 @@ const Register = () => {
             />
           </label>
 
-          <button className="btn">Cadastrar</button>
+
+          {/*Se  não estiver em loading */}
+          {!loading && <button className="btn">Cadastrar</button>}
+
+          {/*se estiver em loading */}
+          {loading && <button className="btn" disabled>Aguarde...</button>}
+
+          {/*se o erro existir */}
+          { error && <p className="error">{error}</p>}
         </form>
     </div>
   )
