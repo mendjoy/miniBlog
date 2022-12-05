@@ -6,6 +6,7 @@ import { useAuthValue } from "../../context/AuthContext";
 
 //hook
 import { useAuthentication } from "../../hooks/useAuthentication";
+import { useInsertDocument } from "../../hooks/useInsertDocument";
 
 
 
@@ -16,12 +17,33 @@ const CreatePost = () => {
   const [body, setBody] = useState("");
   const [tags, setTags] = useState([]);
   const [formError, setFormError] = useState("");
+  const { user } = useAuthValue();
 
-  const { createUser, error: authError,  loading } = useAuthentication();
+  const { insertDocument, response } =  useInsertDocument("posts");
+
 
   const handleSubmit = (e) =>{
 
     e.preventDefault();
+    setFormError("");
+
+    //validarr url da imagem 
+
+    //criar array de tags
+
+    //checar todos os valores
+
+    insertDocument({
+      title,
+      image, 
+      body,
+      tags,
+      uid: user.uid,
+      createdBy: user.displayName
+    })
+
+    //redirect para  home
+
   };
  
   return (
@@ -74,13 +96,13 @@ const CreatePost = () => {
           </label>
 
           {/*Se  não estiver em loading */}
-          {!loading && <button className="btn">Enviar</button>}
+          {!response.loading && <button className="btn">Enviar</button>}
 
           {/*se estiver em loading */}
-          {loading && <button className="btn" disabled>Aguarde...</button>}
+          {response.loading && <button className="btn" disabled>Aguarde...</button>}
 
           {/*se o erro existir */}
-          { /*error && <p className="error">{error}</p>*/}
+          { response.error && <p className="error">{response.error}</p>}
        </form>
     </div>
   )
