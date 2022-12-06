@@ -1,0 +1,41 @@
+.post_container{
+    text-align: center;
+}
+
+.post_container img {
+    max-width: 500px;
+}
+
+.post_container .createdBy {
+    color: #444;
+    font-size: .8em;
+    margin-bottom: 1em;
+    margin-top: .1em;
+    text-align: center;
+}
+
+.post_container .createdBy span{
+  font-style: italic;
+}
+
+.post_container .body{
+    width: 800px;
+    margin: 10px auto;
+    text-align: justify;
+}
+.post_container h3 {
+    margin-bottom: .2em;
+}
+
+.post_container .tags {
+    display: flex;
+    justify-content: center;
+}
+
+.tags p {
+    margin-right: 1em;
+}
+
+.tags span {
+    font-weight: bold;
+}
